@@ -292,6 +292,8 @@ func (s *Server) serve(cxt context.Context) {
 		}
 		tlsConfig := tls.Config{Certificates: []tls.Certificate{cert}}
 		tlsConfig.Rand = rand.Reader
+		// Set MinVersion to TLS12. Earlier versions are considered insecure.
+		tlsConfig.MinVersion = tls.VersionTLS12
 		// go 1.13 defaults to TLS13, which causes some test issues. Set it to TLS12 for now.
 		tlsConfig.MaxVersion = tls.VersionTLS12
 
